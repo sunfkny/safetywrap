@@ -635,7 +635,7 @@ class Nothing(Option[T]):
             # Then assign it to the class' _instance var, so no other
             # instances can be created
             cls._instance = inst
-        return t.cast("Nothing[T]", cls._instance)
+        return cls._instance
 
     def and_(self, alternative: Option[U]) -> Option[U]:
         """Return `Nothing` if `self` is `Nothing`, or the `alternative`."""

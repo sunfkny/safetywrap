@@ -120,7 +120,11 @@ class Monadic:
                 store.get("you")
                 .ok_or("no such val")
                 .map(lambda val: str(val + "et"))
-                .and_then(lambda val: store.insert("you", val).or_else(lambda _: store.insert("you", val, overwrite=True)))
+                .and_then(
+                    lambda val: store.insert("you", val).or_else(
+                        lambda _: store.insert("you", val, overwrite=True)
+                    )
+                )
             )
             if inserted.is_ok():
                 assert inserted.unwrap() == "meet"

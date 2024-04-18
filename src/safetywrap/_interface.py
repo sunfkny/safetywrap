@@ -39,7 +39,7 @@ class _Result(t.Generic[T, E]):
         fn: t.Callable[..., T],
         *args: t.Any,
         catch: t.Type[ExcType] = Exception,  # type: ignore
-        **kwargs: t.Any
+        **kwargs: t.Any,
     ) -> "Result[T, ExcType]":
         """Call `fn` and wrap its result in an `Ok()`.
 

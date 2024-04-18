@@ -1,11 +1,14 @@
 {
     "editor.formatOnSave": true,
-
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
     "markdown.extension.toc.githubCompatibility": true,
-
     "python.formatting.provider": "black",
-    "python.formatting.blackArgs": ["--line-length", "80"],
-
+    "python.formatting.blackArgs": [
+        "--line-length",
+        "80"
+    ],
     "python.linting.flake8Enabled": true,
     "python.linting.flake8Args": [],
     "python.linting.pydocstyleEnabled": true,

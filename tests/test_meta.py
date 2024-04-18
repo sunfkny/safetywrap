@@ -87,7 +87,9 @@ class TestNoConcretesInInterfaces:
                     break
 
     @staticmethod
-    def filter_meths(cls: t.Type, meth: str) -> bool:
+    def filter_meths(cls: t.Type, meth: t.Any) -> bool:
+        if not isinstance(meth, str):
+            return False
         if not callable(getattr(cls, meth)):
             return False
         if not meth.startswith("_"):
@@ -105,7 +107,7 @@ class TestNoConcretesInInterfaces:
             lambda m: TestNoConcretesInInterfaces.filter_meths(
                 # No idea why it thinks `m` is "object", not "str"
                 _Result,
-                m,  # type: ignore
+                m,
             ),
             _Result.__dict__,
         ),
@@ -120,7 +122,7 @@ class TestNoConcretesInInterfaces:
             lambda m: TestNoConcretesInInterfaces.filter_meths(
                 # No idea why it thinks `m` is "object", not "str"
                 _Option,
-                m,  # type: ignore
+                m,
             ),
             _Option.__dict__.keys(),
         ),

@@ -44,8 +44,8 @@ pytest = [
     "tests",
 ]
 sync = "rye sync"
-test = { chain = ["sync", "pytest"] }
-fmt = "black --line-length 80 *.py src tests"
+test = { chain = ["clean", "sync", "pytest"] }
+fmt = "black --line-length 80 src tests"
 lint = { chain = [
     "lint:black",
     "lint:pydocstyle",
@@ -53,11 +53,11 @@ lint = { chain = [
     "lint:pylint",
     "lint:mypy",
 ] }
-"lint:black" = "black --check --line-length 80 *.py src tests"
-"lint:pydocstyle" = "pydocstyle *.py src tests"
-"lint:flake8" = "flake8 *.py src tests"
-"lint:pylint" = "pylint --errors-only *.py src tests"
-"lint:mypy" = "mypy *.py src tests"
+"lint:black" = "black --check --line-length 80 src tests"
+"lint:pydocstyle" = "pydocstyle src tests"
+"lint:flake8" = "flake8 src tests"
+"lint:pylint" = "pylint --errors-only src tests"
+"lint:mypy" = "mypy src tests"
 all = { chain = ["fmt", "test", "lint"] }
 "pin:3.8" = "rye pin 3.8"
 "pin:3.9" = "rye pin 3.9"
@@ -76,8 +76,10 @@ test-all = { chain = [
     "pin:3.12",
     "test",
 ] }
-bench = "./bench/runner.sh"
-clean = 'find . -type f -name "*.py[co]" -delete && find . -type d -name "__pycache__" -delete'
+bench = "bash -c ./bench/runner.sh"
+clean-py-binaries = "find . -type f -name '*.py[co]' -delete"
+clean-pycache = "find . -type d -name '__pycache__' -delete"
+clean = { chain = ["clean-py-binaries", "clean-pycache"] }
 
 [tool.hatch.metadata]
 allow-direct-references = true
