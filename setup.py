@@ -109,7 +109,7 @@ EXTRAS_DEPENDENCIES: t.Dict[str, t.Sequence[str]] = {
 ########################################################################
 
 ENTRY_POINTS: t.Union[str, t.Dict[str, t.Union[str, t.Sequence[str]]]] = {}
-PACKAGE_DATA: t.Dict[str, t.Sequence[str]] = {"safetywrap": ["py.typed"]}
+PACKAGE_DATA: t.Dict[str, t.List[str]] = {"safetywrap": ["py.typed"]}
 
 
 ########################################################################

@@ -9,7 +9,7 @@ from safetywrap import Option, Some, Nothing, Result, Ok, Err
 
 def _sq(val: int) -> Option[int]:
     """Square the result and return an option."""
-    return Some(val ** 2)
+    return Some(val**2)
 
 
 def _nothing(_: int) -> Option[int]:
@@ -206,12 +206,12 @@ class TestOption:
 
     @pytest.mark.parametrize("opt, exp", ((Nothing(), True), (Some(1), False)))
     def test_is_nothing(self, opt: Option[int], exp: bool) -> None:
-        """"Nothings() are nothing, Some()s are not."""
+        """ "Nothings() are nothing, Some()s are not."""
         assert opt.is_nothing() is exp
 
     @pytest.mark.parametrize("opt, exp", ((Nothing(), False), (Some(1), True)))
     def test_is_some(self, opt: Option[int], exp: bool) -> None:
-        """"Nothings() are nothing, Some()s are not."""
+        """ "Nothings() are nothing, Some()s are not."""
         assert opt.is_some() is exp
 
     @pytest.mark.parametrize("opt, exp", ((Nothing(), ()), (Some(5), (5,))))

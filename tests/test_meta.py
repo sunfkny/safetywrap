@@ -19,22 +19,20 @@ class TestInterfaceConformance:
     """
 
     @staticmethod
-    def _public_method_names(obj: object) -> t.Tuple[str, ...]:
+    def _public_method_names(obj: t.Type) -> t.Tuple[str, ...]:
         """Return public method names from an object."""
         return tuple(
             sorted(
-                map(
-                    lambda i: i[0],
-                    filter(
-                        lambda i: not i[0].startswith("_") and callable(i[1]),
-                        obj.__dict__.items(),
-                    ),
-                )
+                filter(
+                    lambda i: not i.startswith("_")
+                    and callable(getattr(obj, i)),
+                    dir(obj),
+                ),
             )
         )
 
     def test_ok_interface(self) -> None:
-        """"The Ok interface matches Result."""
+        """The Ok interface matches Result."""
         assert self._public_method_names(Ok) == self._public_method_names(
             _Result
         )

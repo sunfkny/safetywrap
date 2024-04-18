@@ -20,7 +20,7 @@ T = t.TypeVar("T")
 
 
 class ClassicalDataStore:
-    def __init__(self, values: dict = None) -> None:
+    def __init__(self, values: t.Optional[dict] = None) -> None:
         self._values = values or {}
 
     def connect(self, fail: bool = False) -> "ClassicalDataStore":
@@ -44,7 +44,7 @@ class ClassicalDataStore:
 class MonadicDataStore:
     """Using the monadic types."""
 
-    def __init__(self, values: dict = None) -> None:
+    def __init__(self, values: t.Optional[dict] = None) -> None:
         self._values = values or {}
 
     def connect(self, fail: bool = False) -> Result["MonadicDataStore", str]:
@@ -58,9 +58,7 @@ class MonadicDataStore:
             return Some(self._values[key])
         return Nothing()
 
-    def insert(
-        self, key: str, val: T, overwrite: bool = False
-    ) -> Result[T, str]:
+    def insert(self, key: str, val: T, overwrite: bool = False) -> Result[T, str]:
         """Insert the value and return it."""
         if key in self._values and not overwrite:
             return Err("Key already exists")
@@ -122,11 +120,7 @@ class Monadic:
                 store.get("you")
                 .ok_or("no such val")
                 .map(lambda val: str(val + "et"))
-                .and_then(
-                    lambda val: store.insert("you", val).or_else(
-                        lambda _: store.insert("you", val, overwrite=True)
-                    )
-                )
+                .and_then(lambda val: store.insert("you", val).or_else(lambda _: store.insert("you", val, overwrite=True)))
             )
             if inserted.is_ok():
                 assert inserted.unwrap() == "meet"

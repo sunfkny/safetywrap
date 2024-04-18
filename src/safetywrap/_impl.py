@@ -8,6 +8,7 @@ from ._interface import _Option, _Result
 
 
 T = t.TypeVar("T", covariant=True)
+T2 = t.TypeVar("T2", covariant=True)
 E = t.TypeVar("E", covariant=True)
 U = t.TypeVar("U")
 F = t.TypeVar("F")
@@ -31,11 +32,11 @@ class Result(_Result[T, E]):
 
     @staticmethod
     def of(
-        fn: t.Callable[..., T],
+        fn: t.Callable[..., T2],
         *args: t.Any,
         catch: t.Type[ExcType] = Exception,  # type: ignore
         **kwargs: t.Any,
-    ) -> "Result[T, ExcType]":
+    ) -> "Result[T2, ExcType]":
         """Call `fn` and wrap its result in an `Ok()`.
 
         If an exception is intercepted, return `Err(exception)`. By
@@ -99,7 +100,7 @@ class Option(_Option[T]):
     __slots__ = ()
 
     @staticmethod
-    def of(value: t.Optional[T]) -> "Option[T]":
+    def of(value: t.Optional[T2]) -> "Option[T2]":
         """Construct an Option[T] from an Optional[T].
 
         If the value is None, Nothing() is returned. If the value is

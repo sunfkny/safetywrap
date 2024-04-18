@@ -9,7 +9,7 @@ from safetywrap import Ok, Err, Result, Some, Nothing, Option
 
 def _sq(val: int) -> Result[int, int]:
     """Square a value."""
-    return Ok(val ** 2)
+    return Ok(val**2)
 
 
 def _err(val: int) -> Result[int, int]:
@@ -46,7 +46,7 @@ class TestResultConstructors:
     def test_of_with_kwargs(self) -> None:
         """Test getting a result from a callable with args."""
 
-        def foo(a: int, b: str = None) -> t.Optional[str]:
+        def foo(a: int, b: t.Optional[str] = None) -> t.Optional[str]:
             return b
 
         assert Result.of(foo, 1, b="a").unwrap() == "a"
@@ -279,7 +279,7 @@ class TestResult:
     )
     def test_map(self, start: Result[int, str], exp: Result[int, str]) -> None:
         """.map() will map onto Ok() and ignore Err()."""
-        assert start.map(lambda x: int(x ** 2)) == exp
+        assert start.map(lambda x: int(x**2)) == exp
 
     def test_map_covariance(self) -> None:
         """The input type to the map fn is covariant."""
